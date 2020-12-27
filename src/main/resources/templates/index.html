@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<form action="">
+    <!-- 根据登录角色不同，动态展示内容 -->
+    <h1 sec:authorize="hasRole('vip1')"><a href="/level1/index">level1</a></h1>
+    <h1 sec:authorize="hasRole('vip2')"><a href="/level2/index">level2</a></h1>
+    <h1 sec:authorize="hasRole('vip3')"><a href="/level3/index">level3</a></h1>
+    <!-- 如果已登录，显示用户名和注销按钮 -->
+    <div sec:anthorize="isAuthenticated()">
+        <h1>
+            用户名：<span sec:authentication="name"></span>
+            <a href="/logout">注销</a>
+        </h1>
+    </div>
+    <!-- 如果未登录，显示登陆按钮 -->
+    <div sec:anthorize="!isAuthenticated()">
+        <h1>
+            <a href="/login">登录</a>
+        </h1>
+    </div>
+</form>
+</body>
+</html>
